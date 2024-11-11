@@ -1,5 +1,6 @@
 import { Bell } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import notifications from '../constants/SampleNotifications';
 
 export default function Notifications() {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +34,23 @@ export default function Notifications() {
             {isOpen && (
                 <ul
                     id="notification-menu"
-                    className="absolute bg-neutral-100 border border-gray-400 top-10 right-0 mt-1 h-fit px-2 py-3 w-56 rounded-md shadow-md overflow-auto max-h-64"
+                    className="absolute bg-neutral-100 border border-gray-400 top-10 right-0 mt-1 h-fit px-2 py-3 w-80 rounded-md shadow-md overflow-y-scroll max-h-64"
                 >
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-accent rounded-md cursor-pointer">Profile</li>
+                    {notifications.map((notification) => {
+                        const { id, title, description, time } = notification;
+                        return (
+                            <li
+                                key={id}
+                                className="bg-transparent px-3 py-2 hover:bg-purple-accent/70 rounded-md cursor-pointer"
+                            >
+                                <div className="flex justify-between items-centers">
+                                    <p className="font-medium">{title}</p>
+                                    <p className="text-xs text-purple-primary">{time}</p>
+                                </div>
+                                <p className="text-sm text-gray-600">{description}</p>
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
         </div>
