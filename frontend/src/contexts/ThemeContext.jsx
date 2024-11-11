@@ -9,7 +9,7 @@ function ThemeProvider({ children }) {
     const [isDark, setIsDark] = useState(false);
 
     const toggleMode = () => {
-        setIsDark(!isDark);
+        setIsDark((prev) => !prev);
     }
 
     return (

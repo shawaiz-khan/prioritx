@@ -2,6 +2,7 @@ import Logo from '../assets/images/logo.png';
 import { Search } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import UserPfp from './UserPfp';
+import Notifications from './Notifications';
 
 export default function NavBar() {
     return (
@@ -18,13 +19,14 @@ export default function NavBar() {
                         type="button"
                         className="bg-purple-primary border-2 shadow-md border-purple-primary py-2 px-3 rounded-r-lg text-white hover:bg-purple-secondary hover:border-purple-secondary transition-all duration-300 ease-in flex justify-center items-center"
                     >
-                        <Search size={19} />
+                        <Search size={20} />
                     </button>
                 </div>
-                <div className='flex gap-5 justify-center items-center'>
+                <div className='flex gap-3 justify-center items-center'>
+                    <Notifications />
                     <ThemeToggle />
-                    <UserPfp />
                 </div>
+                <UserPfp />
             </nav>
         </header>
     );
