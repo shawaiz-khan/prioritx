@@ -24,7 +24,7 @@ export default function Notifications() {
         <div className="relative">
             <button
                 id="notification-menu-btn"
-                className="bg-purple-primary border-2 shadow-md border-purple-primary py-2 px-3 rounded-lg text-white hover:bg-purple-secondary hover:border-purple-secondary flex justify-center items-center"
+                className="bg-purple-600 border-2 shadow-md border-purple-600 py-2 px-3 rounded-lg text-white hover:bg-purple-700 hover:border-purple-700 flex justify-center items-center"
                 onClick={handleClick}
                 aria-expanded={isOpen}
                 aria-controls="notification-menu"
@@ -41,11 +41,11 @@ export default function Notifications() {
                         return (
                             <li
                                 key={id}
-                                className="bg-transparent px-3 py-2 hover:bg-purple-accent/70 rounded-md cursor-pointer"
+                                className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer"
                             >
                                 <div className="flex justify-between items-centers">
                                     <p className="font-medium">{title}</p>
-                                    <p className="text-xs text-purple-primary">{time}</p>
+                                    <p className="text-xs text-purple-700">{time}</p>
                                 </div>
                                 <p className="text-sm text-gray-600">{description}</p>
                             </li>
