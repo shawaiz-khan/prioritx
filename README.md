@@ -1,6 +1,6 @@
-# Prioritix
+# Prioritx
 
-Prioritix is a straightforward to-do list app built with React, TailwindCSS, Django, and MongoDB. It helps you manage tasks by providing a dashboard, a basic to-do list (add, delete, edit), a completed tasks section, and user login functionality.
+Prioritx is a straightforward to-do list app built with React, TailwindCSS, Django, and MongoDB. It helps you manage tasks by providing a dashboard, a basic to-do list (add, delete, edit), a completed tasks section, and user login functionality.
 
 ## Features
 - **Dashboard**: Get an overview of your tasks in one place.
