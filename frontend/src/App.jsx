@@ -10,28 +10,31 @@ import AddTask from './pages/AddTask';
 import Completed from './pages/Completed';
 import Pending from './pages/Pending';
 import NavBar from './components/NavBar';
-import Test from './test/test';
+import Test from './test/Test';
 import { LoginProvider } from './contexts/LoginContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <LoginProvider>
-        <NavBar />
-        <Routes>
-          <Route path='*' element={<ErrorPage />} />
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/sign-up' element={<Signup />} />
-          <Route path='/setting' element={<Settings />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/dashboard/todo' element={<Tasks />} />
-          <Route path='/dashboard/todo/add' element={<AddTask />} />
-          <Route path='/dashboard/completed' element={<Completed />} />
-          <Route path='/dashboard/pending' element={<Pending />} />
-          <Route path='/test' element={<Test />} />
-        </Routes>
-      </LoginProvider>
+      <ThemeProvider>
+        <LoginProvider>
+          <NavBar />
+          <Routes>
+            <Route path='*' element={<ErrorPage />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<Signup />} />
+            <Route path='/setting' element={<Settings />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/dashboard/todo' element={<Tasks />} />
+            <Route path='/dashboard/todo/add' element={<AddTask />} />
+            <Route path='/dashboard/completed' element={<Completed />} />
+            <Route path='/dashboard/pending' element={<Pending />} />
+            <Route path='/test' element={<Test />} />
+          </Routes>
+        </LoginProvider>
+      </ThemeProvider>
     </BrowserRouter>
   )
 }

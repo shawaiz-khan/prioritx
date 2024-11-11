@@ -1,5 +1,7 @@
 import Logo from '../assets/images/logo.png';
 import { Search } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
+import UserPfp from './UserPfp';
 
 export default function NavBar() {
     return (
@@ -19,7 +21,10 @@ export default function NavBar() {
                         <Search size={19} />
                     </button>
                 </div>
-                <h1>User</h1>
+                <div className='flex gap-5 justify-center items-center'>
+                    <ThemeToggle />
+                    <UserPfp />
+                </div>
             </nav>
         </header>
     );
