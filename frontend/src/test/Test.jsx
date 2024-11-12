@@ -7,7 +7,7 @@ export default function Test() {
 
     return (
         <div className={`flex items-center justify-center min-h-screen ${isDark ? 'bg-dark-background' : 'bg-light-background'}`}>
-            <div className={`p-8 rounded-lg shadow-lg max-w-sm w-full ${isDark ? 'bg-dark-container' : 'bg-neutral-100'}`}>
+            <div className={`p-8 rounded-lg shadow-lg max-w-sm w-full ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
                 <h1 className={`text-3xl font-semibold text-center mb-6 ${isDark ? 'text-neutral-50' : 'text-gray-900'}`}>
                     {isLoggedIn ? 'You are Logged In' : 'You are Logged Out'}
                 </h1>

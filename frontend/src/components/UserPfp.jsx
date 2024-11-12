@@ -1,5 +1,6 @@
-import { UserRound } from "lucide-react";
+// import { UserRound } from "lucide-react";
 import { useState, useEffect } from "react";
+import userIcon from '../assets/icons/icon.png'
 
 export default function UserPfp() {
     const [isMenu, setIsMenu] = useState(false);
@@ -23,12 +24,13 @@ export default function UserPfp() {
         <div className="relative">
             <button
                 id="user-pfp-btn"
-                className="m-0 relative rounded-full bg-white border-2 border-purple-500 text-purple-700 h-12 w-12 flex justify-center items-center"
+                className="m-0 relative rounded-full bg-white border border-gray-500 text-purple-700 h-12 w-12 flex justify-center items-center"
                 onClick={handleClick}
                 aria-expanded={isMenu}
                 aria-controls="user-pfp-menu"
             >
-                <UserRound size={25} />
+                {/* <UserRound size={25} /> */}
+                <img src={userIcon} alt="User" className="w-5" />
             </button>
 
             {isMenu && (
