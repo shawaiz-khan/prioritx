@@ -37,7 +37,7 @@ export default function Notifications() {
                     className="absolute bg-neutral-100 border border-gray-400 top-10 right-0 mt-1 h-fit px-2 py-3 w-80 rounded-md shadow-md overflow-y-scroll max-h-64"
                 >
                     {notifications.map((notification) => {
-                        const { id, title, description, time } = notification;
+                        const { id, title, description } = notification;
                         return (
                             <li
                                 key={id}
@@ -45,7 +45,6 @@ export default function Notifications() {
                             >
                                 <div className="flex justify-between items-centers">
                                     <p className="font-medium">{title}</p>
-                                    <p className="text-xs text-purple-700">{time}</p>
                                 </div>
                                 <p className="text-sm text-gray-600">{description}</p>
                             </li>

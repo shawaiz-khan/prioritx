@@ -13,6 +13,8 @@ import NavBar from './components/NavBar';
 import Test from './test/Test';
 import { LoginProvider } from './contexts/LoginContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import Profile from './pages/Profile';
+import Support from './pages/Support';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<Signup />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/support' element={<Support />} />
             <Route path='/setting' element={<Settings />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/dashboard/todo' element={<Tasks />} />
