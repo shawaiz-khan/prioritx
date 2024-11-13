@@ -51,7 +51,11 @@ export default function NavBar() {
                                 Login
                             </button>
                             <button
-                                className='bg-purple-600 rounded-md px-4 py-2 text-white hover:bg-purple-700' onClick={() => navigate('sign-up')}>Sign-up</button>
+                                className='bg-purple-600 rounded-md px-4 py-2 text-white hover:bg-purple-700'
+                                onClick={() => navigate('sign-up')}
+                            >
+                                Sign-up
+                            </button>
                         </div>
                     </nav>
                 </header >
