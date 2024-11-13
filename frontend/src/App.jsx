@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
@@ -15,6 +16,7 @@ import { LoginProvider } from './contexts/LoginContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Profile from './pages/Profile';
 import Support from './pages/Support';
+import Statistics from './pages/Statistics';
 
 function App() {
   return (
@@ -23,24 +25,26 @@ function App() {
         <LoginProvider>
           <NavBar />
           <Routes>
-            <Route path='*' element={<ErrorPage />} />
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<Signup />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/support' element={<Support />} />
-            <Route path='/setting' element={<Settings />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/dashboard/todo' element={<Tasks />} />
-            <Route path='/dashboard/todo/add' element={<AddTask />} />
-            <Route path='/dashboard/completed' element={<Completed />} />
-            <Route path='/dashboard/pending' element={<Pending />} />
-            <Route path='/test' element={<Test />} />
+            <Route path='/settings' element={<Settings />} />
+            <Route path='/dashboard' element={<Dashboard />}>
+              <Route path='statistics' element={<Statistics />} />
+              <Route path='todo' element={<Tasks />} />
+              <Route path='add' element={<AddTask />} />
+              <Route path='completed' element={<Completed />} />
+              <Route path='pending' element={<Pending />} />
+              <Route path='support' element={<Support />} />
+            </Route>
+            {process.env.NODE_ENV === 'development' && <Route path='/test' element={<Test />} />}
+            <Route path='*' element={<ErrorPage />} />
           </Routes>
         </LoginProvider>
       </ThemeProvider>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
