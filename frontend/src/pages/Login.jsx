@@ -1,7 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Login() {
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleShowPassword = (e) => {
+        e.preventDefault();
+        setIsShowPassword((prev) => !prev);
+    }
+
+    const handleForm = (e) => {
+        setForm((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
     return (
         <main className="min-h-screen flex justify-center items-center">
             <form
@@ -26,16 +46,27 @@ export default function Login() {
                             type="email"
                             placeholder="Enter your email"
                             className="py-2 px-3 rounded-sm outline-none focus:ring-2 focus:ring-purple-700 m-0 border border-gray-300"
+                            name='email'
+                            onChange={handleForm}
                         />
                     </div>
 
                     <div className='flex flex-col gap-2 mb-4'>
-                        <label htmlFor="password" className="text-md text-gray-700 font-medium m-0">Password</label>
+                        <div className='flex justify-between items-center'>
+                            <label htmlFor="password" className="text-md text-gray-700 font-medium m-0">Password</label>
+                            <button
+                                onClick={handleShowPassword}
+                            >
+                                {isShowPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+                            </button>
+                        </div>
                         <input
                             id="password"
                             type="password"
                             placeholder="Enter your password"
                             className="py-2 px-3 rounded-sm outline-none focus:ring-2 focus:ring-purple-700 m-0 border border-gray-300"
+                            name='password'
+                            onChange={handleForm}
                         />
                     </div>
                 </div>
