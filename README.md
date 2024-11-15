@@ -71,4 +71,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-Check out the project on [GitHub](https://github.com/shawaiz-khan/prioritx) for more details and updates.
+## Contributors
+
+We want to give a huge thank you to all of our contributors! You can find the full list of contributors in the [CONTRIBUTORS.md](./CONTRIBUTORS.md) file.
+
