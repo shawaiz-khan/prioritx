@@ -33,7 +33,7 @@ export default function SideBar() {
             className={`flex flex-col bg-light-container h-screen p-5 border-r ${isExpanded ? "w-60" : "w-fit"} transition-all duration-200 ease-in-out`}
             aria-expanded={isExpanded}
         >
-            <ul className="flex flex-col h-full gap-8">
+            <ul className="flex flex-col h-full gap-8 font-sans">
                 <li
                     id="sidebar-menu"
                     className={`py-2 px-3 flex ${isExpanded ? "justify-end" : "justify-start"}`}

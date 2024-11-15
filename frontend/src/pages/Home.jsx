@@ -4,7 +4,7 @@ import { features } from '../constants/SampleFeatures';
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-light-background">
+        <main className="min-h-screen bg-light-background font-sans">
             <div className="grid grid-rows-[2fr,3fr] h-[90vh] p-5">
                 <div className="flex flex-col justify-center items-center text-center mb-3">
                     <h1 className="text-3xl md:text-4xl text-gray-900 font-bold leading-snug">

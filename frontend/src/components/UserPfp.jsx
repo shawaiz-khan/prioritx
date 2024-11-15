@@ -38,9 +38,9 @@ export default function UserPfp() {
             {isMenu && (
                 <ul
                     id="user-pfp-menu"
-                    className="absolute bg-neutral-100 border border-gray-400 top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md"
+                    className="absolute font-sans bg-neutral-100 border border-gray-400 top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md"
                 >
-                    <li className="bg-transparent px-3 text-purple-700 font-medium cursor-pointer text-lg">Username</li>
+                    <li className="bg-transparent px-3 text-purple-700 font-bold text-lg">Username</li>
                     <hr className="border-gray-300 mx-3 my-2" />
                     <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/profile')}>Profile</li>
                     <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/settings')}>Settings</li>

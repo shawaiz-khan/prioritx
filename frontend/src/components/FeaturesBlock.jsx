@@ -2,7 +2,7 @@
 export default function FeaturesBlock({ features }) {
     return (
         <section className="px-5 py-10 bg-gray-50">
-            <h2 className="text-2xl text-center font-bold text-gray-950 mb-10">Don’t let your day doing nothing</h2>
+            <h2 className="text-2xl text-center font-bold text-gray-950 mb-10 font-sans">Don’t let your day doing nothing</h2>
             <div className="flex justify-center items-center w-full">
                 <div className="flex justify-between items-center w-1/2">
                     {features.map((feature) => {

@@ -14,7 +14,7 @@ export default function NavBar() {
     return (
         <>
             {isLoggedIn ? (
-                <header className={`py-2 px-4 md:px-10 border-b ${isDark ? 'bg-dark-container border-gray-500' : 'bg-light-container'}`}>
+                <header className={`py-2 px-4 md:px-10 border-b font-sans ${isDark ? 'bg-dark-container border-gray-500' : 'bg-light-container'}`}>
                     <nav className="flex justify-between items-center w-full gap-3">
                         <h1 className={`font-bold ${isDark ? "text-light-background" : 'text-gray-800'} text-3xl`}>PRIO<span className='text-purple-600'>RITX</span></h1>
                         <div className="flex items-center w-2/4 max-w-screen-lg">
