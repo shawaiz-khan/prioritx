@@ -1,9 +1,12 @@
-// import { UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { useState, useEffect } from "react";
-import userIcon from '../assets/icons/icon.png'
+import { useNavigate } from 'react-router-dom';
+import { useLoginContext } from "../contexts/LoginContext";
 
 export default function UserPfp() {
     const [isMenu, setIsMenu] = useState(false);
+    const navigate = useNavigate();
+    const { handleLogout } = useLoginContext();
 
     const handleClick = () => {
         setIsMenu((prev) => !prev);
@@ -29,8 +32,7 @@ export default function UserPfp() {
                 aria-expanded={isMenu}
                 aria-controls="user-pfp-menu"
             >
-                {/* <UserRound size={25} /> */}
-                <img src={userIcon} alt="User" className="w-4" />
+                <UserRound size={25} />
             </button>
 
             {isMenu && (
@@ -40,10 +42,10 @@ export default function UserPfp() {
                 >
                     <li className="bg-transparent px-3 text-purple-700 font-medium cursor-pointer text-lg">Username</li>
                     <hr className="border-gray-300 mx-3 my-2" />
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer">Profile</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer">Settings</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer">Support</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer">Logout</li>
+                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/profile')}>Profile</li>
+                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/settings')}>Settings</li>
+                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/dashboard/support')}>Support</li>
+                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={handleLogout}>Logout</li>
                 </ul>
             )}
         </div>
