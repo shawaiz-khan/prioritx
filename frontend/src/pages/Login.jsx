@@ -69,8 +69,7 @@ export default function Login() {
                             id="email"
                             type="email"
                             placeholder={formErrors.email ? "Email is required" : "Enter your email"}
-                            className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.email ? "placeholder-red-500" : "border-gray-300"
-                                }`}
+                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.email ? "placeholder-red-500" : "border-gray-300"}`}
                             name="email"
                             onChange={handleForm}
                         />
@@ -89,7 +88,7 @@ export default function Login() {
                             id="password"
                             type={isShowPassword ? "text" : "password"}
                             placeholder={formErrors.password ? "Password is required" : "Enter your password"}
-                            className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.password ? "placeholder-red-500" : "border-gray-300"}`}
+                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.password ? "placeholder-red-500" : "border-gray-300"}`}
                             name="password"
                             onChange={handleForm}
                         />

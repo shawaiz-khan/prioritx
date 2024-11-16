@@ -75,7 +75,7 @@ export default function Signup() {
                             id="name"
                             type="text"
                             placeholder={formErrors.name ? "Name is required" : "Enter your name"}
-                            className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.name ? "outline-red-500 placeholder-red-500" : "border-gray-300"
+                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.name ? "outline-red-500 placeholder-red-500" : "border-gray-300"
                                 }`}
                             name="name"
                             onChange={handleForm}
@@ -89,7 +89,7 @@ export default function Signup() {
                             id="email"
                             type="email"
                             placeholder={formErrors.email ? "Email is required" : "Enter your email"}
-                            className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.email ? "outline-red-500 placeholder-red-500" : "border-gray-300"
+                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.email ? "outline-red-500 placeholder-red-500" : "border-gray-300"
                                 }`}
                             name="email"
                             onChange={handleForm}
@@ -105,7 +105,7 @@ export default function Signup() {
                         id="username"
                         type="text"
                         placeholder={formErrors.username ? "Username is required" : "Enter your username"}
-                        className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.username ? "outline-red-500 placeholder-red-500" : "border-gray-300"
+                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.username ? "outline-red-500 placeholder-red-500" : "border-gray-300"
                             }`}
                         name="username"
                         onChange={handleForm}
@@ -125,7 +125,7 @@ export default function Signup() {
                         id="password"
                         type={isShowPassword ? "text" : "password"}
                         placeholder={formErrors.password ? "Password is required" : "Enter your password"}
-                        className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.password ? "outline-red-500 placeholder-red-500" : "border-gray-300"
+                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.password ? "outline-red-500 placeholder-red-500" : "border-gray-300"
                             }`}
                         name="password"
                         onChange={handleForm}
@@ -149,10 +149,7 @@ export default function Signup() {
                                 ? formErrors.confirmPassword
                                 : "Re-enter your password"
                         }
-                        className={`py-2 px-3 rounded-sm outline-none focus:ring-2 ${formErrors.confirmPassword
-                            ? "outline-red-500 placeholder-red-500"
-                            : "border-gray-300"
-                            }`}
+                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.confirmPassword ? "outline-red-500 placeholder-red-500" : "border-gray-300"}`}
                         name="confirmPassword"
                         onChange={handleForm}
                     />

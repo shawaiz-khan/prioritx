@@ -29,7 +29,7 @@ export default function SideBar() {
     ];
 
     return (
-        <div
+        <aside
             className={`flex flex-col bg-light-container h-screen p-5 border-r ${isExpanded ? "w-60" : "w-fit"} transition-all duration-200 ease-in-out`}
             aria-expanded={isExpanded}
         >
@@ -57,6 +57,6 @@ export default function SideBar() {
                     </li>
                 ))}
             </ul>
-        </div>
+        </aside>
     );
 }
