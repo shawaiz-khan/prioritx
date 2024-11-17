@@ -16,9 +16,6 @@ export default {
           container: '#F8F9FA',
         }
       },
-      fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-      },
     },
   },
   plugins: [],

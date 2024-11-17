@@ -2,11 +2,13 @@ import { UserRound } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLoginContext } from "../contexts/LoginContext";
+import { useThemeContext } from "../contexts/ThemeContext";
 
 export default function UserPfp() {
     const [isMenu, setIsMenu] = useState(false);
     const navigate = useNavigate();
     const { handleLogout } = useLoginContext();
+    const { isDark } = useThemeContext();
 
     const handleClick = () => {
         setIsMenu((prev) => !prev);
@@ -38,14 +40,14 @@ export default function UserPfp() {
             {isMenu && (
                 <ul
                     id="user-pfp-menu"
-                    className="absolute font-sans bg-neutral-100 border border-gray-400 top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md"
+                    className={`absolute border ${isDark ? 'bg-dark-container text-white border-gray-700' : 'bg-neutral-100 text-gray-800 border-gray-400'} top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md`}
                 >
-                    <li className="bg-transparent px-3 text-purple-700 font-bold text-lg">Username</li>
+                    <li className="bg-transparent px-3 font-semibold text-lg">Username</li>
                     <hr className="border-gray-300 mx-3 my-2" />
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/profile')}>Profile</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/settings')}>Settings</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={() => navigate('/dashboard/support')}>Support</li>
-                    <li className="bg-transparent px-3 py-2 hover:bg-purple-200 rounded-md cursor-pointer" onClick={handleLogout}>Logout</li>
+                    <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/profile')}>Profile</li>
+                    <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/settings')}>Settings</li>
+                    <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/dashboard/support')}>Support</li>
+                    <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={handleLogout}>Logout</li>
                 </ul>
             )}
         </div>

@@ -17,6 +17,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Profile from './pages/Profile';
 import Support from './pages/Support';
 import Statistics from './pages/Statistics';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             {process.env.NODE_ENV === 'development' && <Route path='/test' element={<Test />} />}
             <Route path='*' element={<ErrorPage />} />
           </Routes>
+          <Footer />
         </LoginProvider>
       </ThemeProvider>
     </BrowserRouter>

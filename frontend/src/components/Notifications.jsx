@@ -37,7 +37,7 @@ export default function Notifications() {
             {isOpen && (
                 <ul
                     id="notification-menu"
-                    className={`absolute ${isDark ? 'bg-dark-container text-white' : 'bg-neutral-100 text-gray-800'} border ${isDark ? 'border-gray-700' : 'border-gray-400'} top-10 right-0 mt-1 h-fit px-2 py-3 w-80 rounded-md shadow-md overflow-y-scroll max-h-64`}
+                    className={`absolute border ${isDark ? 'bg-dark-container text-white border-gray-700' : 'bg-neutral-100 text-gray-800 border-gray-400'} top-10 right-0 mt-1 h-fit px-2 py-3 w-80 rounded-md shadow-md overflow-y-scroll max-h-64`}
                 >
                     {notifications.map((notification) => {
                         const { id, title, description } = notification;
