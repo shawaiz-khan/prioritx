@@ -8,7 +8,7 @@ const useLoginContext = () => useContext(LoginContext);
 
 function LoginProvider({ children }) {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     const toggleLogin = () => {
         setIsLoggedIn((prev) => !prev);

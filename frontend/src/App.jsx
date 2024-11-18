@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -14,7 +14,6 @@ import NavBar from './components/NavBar';
 import Test from './test/Test';
 import { LoginProvider } from './contexts/LoginContext';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Profile from './pages/Profile';
 import Support from './pages/Support';
 import Statistics from './pages/Statistics';
 import Footer from './components/Footer';
@@ -29,9 +28,9 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<Signup />} />
-            <Route path='/profile' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/dashboard' element={<Dashboard />}>
+              <Route index element={<Navigate to='statistics' replace />} />
               <Route path='statistics' element={<Statistics />} />
               <Route path='todo' element={<Tasks />} />
               <Route path='add' element={<AddTask />} />
