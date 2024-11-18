@@ -1,6 +1,6 @@
 import { Bell } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import notifications from '../constants/SampleNotifications';
+import notifications from '../samples/SampleNotifications';
 import { useThemeContext } from '../contexts/ThemeContext';
 
 export default function Notifications() {
