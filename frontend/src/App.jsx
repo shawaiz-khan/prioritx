@@ -32,7 +32,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />}>
               <Route index element={<Navigate to='statistics' replace />} />
               <Route path='statistics' element={<Statistics />} />
-              <Route path='todo' element={<Tasks />} />
+              <Route path='tasks' element={<Tasks />} />
               <Route path='add' element={<AddTask />} />
               <Route path='completed' element={<Completed />} />
               <Route path='pending' element={<Pending />} />

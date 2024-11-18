@@ -13,7 +13,7 @@ export default function Dashboard() {
     return (
         <main className="min-h-screen flex bg-gray-50">
             <SideBar />
-            <div className="flex-1 p-5 overflow-auto">
+            <div className="flex-1 overflow-auto">
                 {loading ? (
                     <div className="text-center text-gray-500">Loading...</div>
                 ) : (

@@ -1,6 +1,6 @@
 import landingImage from '../assets/images/landing image.png';
 import FeaturesBlock from '../components/FeaturesBlock';
-import { features } from '../samples/SampleFeatures';
+import { features } from '../data/SampleFeatures';
 
 export default function Home() {
     return (
