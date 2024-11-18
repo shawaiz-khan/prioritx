@@ -30,7 +30,7 @@ export default function SideBar() {
 
     return (
         <aside
-            className={`flex flex-col bg-light-container h-screen p-5 border-r ${isExpanded ? "w-60" : "w-20"} transition-all duration-200 ease-in-out`}
+            className={`flex flex-col bg-light-container h-screen p-5 border-r ${isExpanded ? "w-60" : "w-fit"} transition-all duration-200 ease-in-out`}
             aria-expanded={isExpanded}
         >
             <ul className="flex flex-col h-full gap-8 font-sans">
