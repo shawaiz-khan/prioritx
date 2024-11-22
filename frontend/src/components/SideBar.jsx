@@ -30,8 +30,8 @@ export default function SideBar() {
 
   return (
     <aside
-      className={`flex flex-col bg-light-container h-screen border-r 
-          ${isExpanded ? "w-60" : "w-16"} 
+      className={`flex flex-col bg-light-container h-screen border-r p-5
+          ${isExpanded ? "w-60" : "w-20"} 
           transition-[width] duration-300 ease-in-out`}
       aria-expanded={isExpanded}
     >
@@ -58,9 +58,9 @@ export default function SideBar() {
                       ${isExpanded ? "justify-start" : "justify-center"}`}
             onClick={() => navigate(item.link)}
           >
-            <span className="text-gray-900 text-lg">{item.icon}</span>
+            <span className="text-gray-900">{item.icon}</span>
             {isExpanded && (
-              <span className="whitespace-nowrap text-lg font-medium text-gray-900">
+              <span className="whitespace-nowrap">
                 {item.label}
               </span>
             )}
