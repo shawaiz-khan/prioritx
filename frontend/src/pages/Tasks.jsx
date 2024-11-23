@@ -2,16 +2,14 @@ import { useState } from "react";
 import FilterDropdown from "../components/FilterDropdown";
 import TaskItem from "../components/TaskItem";
 import tasks from '../data/SampleTasks';
+import PreviewPane from "../components/PreviewPane";
 
 export default function Tasks() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [taskList, setTaskList] = useState(tasks);
     const [selectedPriority, setSelectedPriority] = useState('');
     const [selectedDueDate, setSelectedDueDate] = useState('');
-
-    const handlePreviewPane = () => {
-        setIsExpanded((prev) => !prev);
-    };
+    const [selectedTask, setSelectedTask] = useState(null);
 
     const handleCompleted = (id) => {
         setTaskList((prevTasks) =>
@@ -21,8 +19,14 @@ export default function Tasks() {
         );
     };
 
-    const uniquePriorities = [...new Set(tasks.map((task) => task.priority))];
-    const uniqueDueDates = [...new Set(tasks.map((task) => task.dueDate))];
+    const handlePreviewData = (task) => {
+        setSelectedTask(task);
+        setIsExpanded(true);
+    };
+
+    const getUniqueValues = (key) => [...new Set(tasks.map((task) => task[key]))];
+    const uniquePriorities = getUniqueValues("priority");
+    const uniqueDueDates = getUniqueValues("dueDate");
 
     const filteredTasks = taskList.filter((task) => {
         const matchesPriority = selectedPriority ? task.priority === selectedPriority : true;
@@ -60,14 +64,14 @@ export default function Tasks() {
                             key={task.id}
                             task={task}
                             handleCompleted={handleCompleted}
-                            handlePreviewPane={handlePreviewPane}
+                            handlePreviewData={handlePreviewData}
                         />
                     ))}
                 </div>
             </div>
 
-            <aside className={`border-l p-5 ${isExpanded ? 'w-1/2' : 'w-0'} flex-shrink-0 overflow-hidden transition-all duration-300`}>
-                <h1>Preview Pane</h1>
+            <aside className={`border-l p-5 flex-shrink-0 overflow-auto transition-all ${isExpanded ? 'w-1/2' : 'hidden'}`}>
+                <PreviewPane task={selectedTask} closeTask={() => { setIsExpanded(false) }} />
             </aside>
         </div>
     );
