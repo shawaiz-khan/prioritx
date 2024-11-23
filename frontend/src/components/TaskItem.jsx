@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Check } from "lucide-react";
 
-export default function TaskItem({ task, handleCompleted, handlePreviewPane }) {
+export default function TaskItem({ task, handleCompleted, handlePreviewData }) {
     const { id, title, description, dueDate, completed } = task;
     const shortDescription = description.length > 100 ? description.slice(0, 100) + '...' : description;
 
@@ -19,7 +19,7 @@ export default function TaskItem({ task, handleCompleted, handlePreviewPane }) {
             <p className="font-normal">{shortDescription}</p>
             <div className="flex justify-between items-center">
                 <button
-                    onClick={handlePreviewPane}
+                    onClick={() => handlePreviewData(task)}
                     className="text-sm bg-purple-600 hover:bg-purple-700 py-1 px-3 rounded-md text-white"
                 >
                     See Details
