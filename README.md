@@ -11,7 +11,6 @@ Prioritx is a straightforward to-do list app built with React, TailwindCSS, Djan
 ## Tech Stack
 - **Frontend**: React, TailwindCSS
 - **Backend**: Django
-- **Database**: MongoDB
 
 ## Setup
 
