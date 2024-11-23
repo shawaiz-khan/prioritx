@@ -71,7 +71,7 @@ export default function Tasks() {
             </div>
 
             <aside className={`border-l p-5 flex-shrink-0 overflow-auto transition-all ${isExpanded ? 'w-1/2' : 'hidden'}`}>
-                <PreviewPane task={selectedTask} />
+                <PreviewPane task={selectedTask} closeTask={() => { setIsExpanded(false) }} />
             </aside>
         </div>
     );
