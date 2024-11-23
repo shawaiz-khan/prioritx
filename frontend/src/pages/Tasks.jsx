@@ -2,6 +2,7 @@ import { useState } from "react";
 import FilterDropdown from "../components/FilterDropdown";
 import TaskItem from "../components/TaskItem";
 import tasks from '../data/SampleTasks';
+import PreviewPane from "../components/PreviewPane";
 
 export default function Tasks() {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -66,9 +67,10 @@ export default function Tasks() {
                 </div>
             </div>
 
-            <aside className={`border-l p-5 ${isExpanded ? 'w-1/2' : 'w-0'} flex-shrink-0 overflow-hidden transition-all duration-300`}>
-                <h1>Preview Pane</h1>
+            <aside className={`border-l p-5 flex-shrink-0 overflow-auto`}>
+                <PreviewPane />
             </aside>
+
         </div>
     );
 }
