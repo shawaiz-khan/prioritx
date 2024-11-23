@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 
 export default function TaskItem({ task, handleCompleted, handlePreviewData }) {
     const { id, title, description, dueDate, completed } = task;
-    const shortDescription = description.length > 100 ? description.slice(0, 100) + '...' : description;
+    const shortDescription = description.length > 50 ? description.slice(0, 50) + '...' : description;
 
     return (
         <div className="bg-light-background border-2 rounded-md p-4 flex flex-col gap-2">
