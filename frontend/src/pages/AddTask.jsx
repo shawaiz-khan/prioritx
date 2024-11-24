@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import tasks from '../data/SampleTasks';
+import tasksData from '../data/SampleTasks';
 
 export default function AddTask() {
     const newId = () => {
-        const maxId = tasks.reduce((max, task) => {
+        const maxId = tasksData.reduce((max, task) => {
             return task.id > max ? task.id : max;
         }, 0);
         return maxId + 1;
@@ -15,21 +15,35 @@ export default function AddTask() {
         description: '',
         completed: false,
         dueDate: '',
-        priority: ''
+        priority: 'medium'
     });
 
     const handleOnChange = (e) => {
-        setNewTask({ ...newTask, [e.target.name]: [e.target.value] });
-    }
+        const { name, value } = e.target;
+        setNewTask({ ...newTask, [name]: value });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    }
+        const updatedTasks = [...tasksData, newTask];
+        setNewTask({
+            id: newId(),
+            title: '',
+            description: '',
+            completed: false,
+            dueDate: '',
+            priority: 'medium'
+        });
+        console.log(updatedTasks);
+    };
 
     return (
         <main className="p-5 flex justify-center items-center min-h-screen bg-light-background">
-            <form className="bg-light-container flex flex-col w-3/4 p-5 rounded-md gap-4">
-                <div className='w-1/4'>
+            <form
+                className="bg-light-container flex flex-col w-3/4 p-5 rounded-md gap-4"
+                onSubmit={handleSubmit}
+            >
+                <div className="w-1/4">
                     <h1 className="text-3xl font-semibold mb-2">Add New Task</h1>
                     <div className="border-t-2 border-purple-600 mb-4"></div>
                 </div>
@@ -90,7 +104,6 @@ export default function AddTask() {
                 <button
                     type="submit"
                     className="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700"
-                    onSubmit={handleSubmit}
                 >
                     Submit
                 </button>
