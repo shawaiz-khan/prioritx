@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Check } from "lucide-react";
 
-export default function TaskItem({ task, handleCompleted, handlePreviewData }) {
+export default function TaskItem({ task, handleCompleted = null, handlePreviewData }) {
     const { id, title, description, dueDate, completed } = task;
     const shortDescription = description.length > 50 ? description.slice(0, 50) + '...' : description;
 
