@@ -1,6 +1,6 @@
 # Prioritx
 
-Prioritx is a straightforward to-do list app built with React, TailwindCSS, Django, and MongoDB. It helps you manage tasks by providing a dashboard, a basic to-do list (add, delete, edit), a completed tasks section, and user login functionality.
+Prioritx is a straightforward to-do list app built with React, TailwindCSS, Node.js, Express, and MongoDB. It helps you manage tasks by providing a dashboard, a basic to-do list (add, delete, edit), a completed tasks section, and user login functionality.
 
 ## Features
 - **Dashboard**: Get an overview of your tasks in one place.
@@ -10,7 +10,7 @@ Prioritx is a straightforward to-do list app built with React, TailwindCSS, Djan
 
 ## Tech Stack
 - **Frontend**: React, TailwindCSS
-- **Backend**: Django
+- **Backend**: Node.js, Express, MongoDB
 
 ## Setup
 
@@ -37,10 +37,12 @@ Navigate to the `backend` folder and install the dependencies:
 
 ```bash
 cd backend
-pip install -r requirements.txt
+npm install
 ```
 
-### 3. Run the app
+Make sure you have MongoDB set up and running. You can either use a local instance or MongoDB Atlas for cloud storage.
+
+### 4. Run the app
 
 #### Frontend
 
@@ -52,13 +54,13 @@ npm start
 
 #### Backend
 
-To start the Django server:
+To start the Node.js backend server:
 
 ```bash
-python manage.py runserver
+node server.js
 ```
 
-Make sure MongoDB is running locally or use a cloud instance to handle the database.
+The backend will run on `http://localhost:5000`, and the frontend React app will run on `http://localhost:3000`.
 
 ## Contributing
 
@@ -73,4 +75,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ## Contributors
 
 We want to give a huge thank you to all of our contributors! You can find the full list of contributors in the [CONTRIBUTORS.md](./CONTRIBUTORS.md) file.
-
