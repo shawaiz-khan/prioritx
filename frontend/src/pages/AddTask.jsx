@@ -40,7 +40,7 @@ export default function AddTask() {
     return (
         <main className="p-5 flex justify-center items-center min-h-screen bg-light-background">
             <form
-                className="bg-light-container flex flex-col w-3/4 p-5 rounded-md gap-4"
+                className="bg-light-container flex flex-col w-3/4 p-5 rounded-md gap-4 border-2"
                 onSubmit={handleSubmit}
             >
                 <div className="w-1/4">
