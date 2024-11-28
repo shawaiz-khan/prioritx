@@ -1,20 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const taskRoutes = require('./routes/TasksRoute');
+const userRoutes = require('./routes/UserRoute');
 
-dotenv.config();
+connectDB();
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URL, {}).then(() => {
-    console.log('Connect to MongoDB');
-}).catch((err) => {
-    console.log('Error: ', err);
-});
+app.use('/api/tasks', taskRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
     res.send('Prioritx is up and Running');
