@@ -9,6 +9,11 @@ export default function PreviewPane({ task, closeTask }) {
     const { title, description, priority, dueDate } = task;
     const newPriority = priority.charAt(0).toUpperCase() + priority.slice(1);
 
+    const formatDate = (date) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return new Date(date).toLocaleDateString('en-GB', options);
+    };
+
     return (
         <div className="w-full h-full">
             <button onClick={closeTask} className="mb-5"><X className="hover:text-purple-700" /></button>
@@ -17,7 +22,7 @@ export default function PreviewPane({ task, closeTask }) {
                 <p className="text-md">{description}</p>
                 <div>
                     <p><span className="font-semibold">Priority:</span> {newPriority}</p>
-                    <p><span className="font-semibold">Due Date:</span> {dueDate}</p>
+                    <p><span className="font-semibold">Due Date:</span> {formatDate(dueDate)}</p>
                 </div>
             </article>
         </div>

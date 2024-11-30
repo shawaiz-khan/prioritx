@@ -8,6 +8,8 @@ export default function AddTask() {
         dueDate: '',
         priority: 'medium',
     });
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
@@ -16,6 +18,8 @@ export default function AddTask() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(null);
 
         const taskToSend = { ...newTask, completed: false };
 
@@ -44,6 +48,9 @@ export default function AddTask() {
             });
         } catch (err) {
             console.error('Error adding task:', err.message);
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -111,11 +118,13 @@ export default function AddTask() {
                         </select>
                     </label>
                 </div>
+                {error && <p className="text-red-600">{error}</p>}
                 <button
                     type="submit"
-                    className="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700"
+                    className={`mt-4 px-6 py-2 ${isLoading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-700'} text-white font-semibold rounded-md`}
+                    disabled={isLoading}
                 >
-                    Submit
+                    {isLoading ? 'Submitting...' : 'Submit'}
                 </button>
             </form>
         </main>

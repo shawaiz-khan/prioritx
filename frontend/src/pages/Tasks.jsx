@@ -14,7 +14,6 @@ export default function Tasks() {
         setIsExpanded,
         uniquePriorities,
         uniqueDueDates,
-        filteredTasks,
         handlePreviewData,
     } = useTaskFiltering(tasks);
 
@@ -26,7 +25,6 @@ export default function Tasks() {
     return (
         <div className="min-h-screen flex overflow-hidden">
             <TaskList
-                filteredTasks={filteredTasks}
                 uniquePriorities={uniquePriorities}
                 uniqueDueDates={uniqueDueDates}
                 selectedPriority={selectedPriority}

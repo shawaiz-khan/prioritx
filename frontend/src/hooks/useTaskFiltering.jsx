@@ -10,12 +10,6 @@ export default function useTaskFiltering(tasks) {
     const uniquePriorities = getUniqueValues("priority");
     const uniqueDueDates = getUniqueValues("dueDate");
 
-    const filteredTasks = tasks.filter((task) => {
-        const matchesPriority = selectedPriority ? task.priority === selectedPriority : true;
-        const matchesDueDate = selectedDueDate ? task.dueDate === selectedDueDate : true;
-        return matchesPriority && matchesDueDate;
-    });
-
     const handlePreviewData = (task) => {
         setSelectedTask(task);
         setIsExpanded(true);
@@ -32,7 +26,6 @@ export default function useTaskFiltering(tasks) {
         setIsExpanded,
         uniquePriorities,
         uniqueDueDates,
-        filteredTasks,
         handlePreviewData,
     };
 }
