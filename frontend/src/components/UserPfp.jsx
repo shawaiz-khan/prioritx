@@ -46,7 +46,6 @@ export default function UserPfp() {
                     <hr className="border-gray-300 mx-3 my-2" />
                     <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/dashboard')}>Dashboard</li>
                     <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/settings')}>Settings</li>
-                    <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/dashboard/support')}>Support</li>
                     <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={handleLogout}>Logout</li>
                 </ul>
             )}

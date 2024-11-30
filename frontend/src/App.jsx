@@ -14,7 +14,6 @@ import NavBar from './components/NavBar';
 import Test from './test/Test';
 import { LoginProvider } from './contexts/LoginContext';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Support from './pages/Support';
 import Statistics from './pages/Statistics';
 import Footer from './components/Footer';
 
@@ -36,7 +35,6 @@ function App() {
               <Route path='add' element={<AddTask />} />
               <Route path='completed' element={<Completed />} />
               <Route path='pending' element={<Pending />} />
-              <Route path='support' element={<Support />} />
             </Route>
             {process.env.NODE_ENV === 'development' && <Route path='/test' element={<Test />} />}
             <Route path='*' element={<ErrorPage />} />

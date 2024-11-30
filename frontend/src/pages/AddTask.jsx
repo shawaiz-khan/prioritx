@@ -1,21 +1,12 @@
 import { useState } from 'react';
-import tasksData from '../data/SampleTasks';
 
 export default function AddTask() {
-    const newId = () => {
-        const maxId = tasksData.reduce((max, task) => {
-            return task.id > max ? task.id : max;
-        }, 0);
-        return maxId + 1;
-    };
-
     const [newTask, setNewTask] = useState({
-        id: newId(),
         title: '',
         description: '',
         completed: false,
         dueDate: '',
-        priority: 'medium'
+        priority: 'medium',
     });
 
     const handleOnChange = (e) => {
@@ -23,18 +14,37 @@ export default function AddTask() {
         setNewTask({ ...newTask, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const updatedTasks = [...tasksData, newTask];
-        setNewTask({
-            id: newId(),
-            title: '',
-            description: '',
-            completed: false,
-            dueDate: '',
-            priority: 'medium'
-        });
-        console.log(updatedTasks);
+
+        const taskToSend = { ...newTask, completed: false };
+
+        try {
+            const res = await fetch('http://localhost:3000/api/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(taskToSend),
+            });
+
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+
+            const savedTask = await res.json();
+            console.log('Task added:', savedTask);
+
+            setNewTask({
+                title: '',
+                description: '',
+                completed: false,
+                dueDate: '',
+                priority: 'medium',
+            });
+        } catch (err) {
+            console.error('Error adding task:', err.message);
+        }
     };
 
     return (
@@ -43,9 +53,9 @@ export default function AddTask() {
                 className="bg-light-container flex flex-col w-3/4 p-5 rounded-md gap-4 border-2"
                 onSubmit={handleSubmit}
             >
-                <div className="w-1/4">
-                    <h1 className="text-3xl font-semibold mb-2">Add New Task</h1>
-                    <div className="border-t-2 border-purple-600 mb-4"></div>
+                <div className="w-fit">
+                    <h1 className="px-2 text-3xl font-semibold mb-2">Add New Task</h1>
+                    <span className="block border-t-2 border-purple-600 mb-4"></span>
                 </div>
                 <label htmlFor="title" className="flex flex-col gap-2">
                     <span className="text-xl font-medium">Task Title</span>

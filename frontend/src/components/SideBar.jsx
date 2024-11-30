@@ -4,16 +4,18 @@ import {
     PlusSquare,
     CheckCircle,
     Clock,
-    LifeBuoy,
     Menu,
     X,
+    LogOut,
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoginContext } from "../contexts/LoginContext";
 
 export default function SideBar() {
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
+    const { handleLogout } = useLoginContext();
 
     const handleSidebarClick = () => {
         setIsExpanded((prev) => !prev);
@@ -25,7 +27,6 @@ export default function SideBar() {
         { label: "Add Tasks", icon: <PlusSquare />, link: 'add' },
         { label: "Completed Tasks", icon: <CheckCircle />, link: 'completed' },
         { label: "Pending Tasks", icon: <Clock />, link: 'pending' },
-        { label: "Support", icon: <LifeBuoy />, link: 'support' },
     ];
 
     return (
@@ -50,12 +51,19 @@ export default function SideBar() {
                     <li
                         key={index}
                         className="p-3 rounded-md hover:bg-purple-200 border-b flex items-center gap-2 cursor-pointer"
-                        onClick={() => navigate(item.link)}
+                        onClick={item.label === 'logout' ? () => handleLogout : () => navigate(item.link)}
                     >
                         <span className="text-gray-900">{item.icon}</span>
                         {isExpanded && item.label}
                     </li>
                 ))}
+                <li
+                    className="p-3 rounded-md hover:bg-purple-200 border-b flex items-center gap-2 cursor-pointer"
+                    onClick={handleLogout}
+                >
+                    <span className="text-gray-900"><LogOut /></span>
+                    {isExpanded && <h1>Logout</h1>}
+                </li>
             </ul>
         </aside>
     );

@@ -15,7 +15,7 @@ exports.createTasks = async (req, res) => {
     try {
         const newTask = new Task({ title, description, dueDate, priority });
         await newTask.save();
-        res.send(201).json(newTask);
+        res.status(201).json(newTask);
     } catch (err) {
         res.status(400).json({ message: 'Bad request', error: err.message });
     }
