@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function Signup() {
         confirmPassword: "",
     });
     const [formErrors, setFormErrors] = useState({});
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleShowPassword = (e) => {
         e.preventDefault();
@@ -26,25 +29,63 @@ export default function Signup() {
         }));
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePasswordStrength = (password) => {
+        const passwordStrengthRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        return passwordStrengthRegex.test(password);
+    };
+
     const validateForm = () => {
         const errors = {};
-        if (!form.email.trim()) errors.email = "Email is required.";
+
+        if (!form.email.trim()) {
+            errors.email = "Email is required.";
+        } else if (!validateEmail(form.email)) {
+            errors.email = "Please enter a valid email.";
+        }
+
         if (!form.username.trim()) errors.username = "Username is required.";
         if (!form.name.trim()) errors.name = "Name is required.";
+
         if (!form.password.trim()) errors.password = "Password is required.";
+        else if (!validatePasswordStrength(form.password)) {
+            errors.password =
+                "Password must be at least 8 characters long and contain both letters and numbers.";
+        }
+
         if (!form.confirmPassword.trim()) errors.confirmPassword = "Please confirm your password.";
-        if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
+        else if (form.password !== form.confirmPassword) {
             errors.confirmPassword = "Passwords do not match.";
         }
+
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log("Form submitted successfully:", form);
-            navigate('/login');
+            setLoading(true);
+            try {
+                const response = await axios.post(`https://localhost:3000/api/users/register`, form);
+                setLoading(false);
+                if (response.status === 201) {
+                    console.log("Form submitted successfully:", form);
+                    navigate("/login");
+                }
+            } catch (err) {
+                setLoading(false);
+                console.error("Error: ", err);
+                if (err.response && err.response.data) {
+                    setErrorMessage(err.response.data.message);
+                } else {
+                    setErrorMessage("An error occurred during registration.");
+                }
+            }
         } else {
             console.log("Form contains errors.");
         }
@@ -104,7 +145,9 @@ export default function Signup() {
                     <input
                         id="username"
                         type="text"
-                        placeholder={formErrors.username ? "Username is required" : "Enter your username"}
+                        placeholder={
+                            formErrors.username ? "Username is required" : "Enter your username"
+                        }
                         className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.username ? "outline-red-500 placeholder-red-500" : "border-gray-300"
                             }`}
                         name="username"
@@ -137,9 +180,6 @@ export default function Signup() {
                         <label htmlFor="confirmPassword" className="text-md text-gray-700 font-medium">
                             Confirm Password
                         </label>
-                        <button onClick={handleShowPassword} type="button">
-                            {isShowPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-                        </button>
                     </div>
                     <input
                         id="confirmPassword"
@@ -149,17 +189,21 @@ export default function Signup() {
                                 ? formErrors.confirmPassword
                                 : "Re-enter your password"
                         }
-                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.confirmPassword ? "outline-red-500 placeholder-red-500" : "border-gray-300"}`}
+                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.confirmPassword ? "outline-red-500 placeholder-red-500" : "border-gray-300"
+                            }`}
                         name="confirmPassword"
                         onChange={handleForm}
                     />
                 </div>
 
+                {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
+
                 <button
                     type="submit"
                     className="bg-purple-700 text-white py-2 rounded-md hover:bg-purple-600 transition"
+                    disabled={loading}
                 >
-                    Sign Up
+                    {loading ? "Submitting..." : "Sign Up"}
                 </button>
             </form>
         </main>
