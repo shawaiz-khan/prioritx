@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import axios from 'axios'
 
 export default function Login() {
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -34,13 +35,21 @@ export default function Login() {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            console.log("Form submitted successfully:", form);
-            navigate('/dashboard');
-        } else {
-            console.log("Form contains errors.");
+        try {
+            const res = await axios.post('http://localhost:3000/api/users/login', form);
+
+            if (validateForm() && res.status === 200) {
+                console.log("Form submitted successfully:", form);
+                navigate('/dashboard');
+            }
+        } catch (err) {
+            if (err.response) {
+                console.error(`Error: ${err.response.data.message}`);
+            } else {
+                console.error("An error occurred during login.");
+            }
         }
     };
 
@@ -63,7 +72,7 @@ export default function Login() {
                 <div>
                     <div className="flex flex-col gap-2 mb-4">
                         <label htmlFor="email" className="text-md text-gray-700 font-medium m-0">
-                            Username or Email
+                            Email
                         </label>
                         <input
                             id="email"

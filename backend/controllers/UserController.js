@@ -6,9 +6,10 @@ exports.getUsers = async (req, res) => {
         const users = await User.find();
         res.json(users);
     } catch (err) {
+        console.error("Server Error:", err);
         res.status(500).json({ message: 'Server Error', error: err.message });
     }
-}
+};
 
 exports.registerUser = async (req, res) => {
     const { name, email, username, password } = req.body;
@@ -29,14 +30,23 @@ exports.registerUser = async (req, res) => {
         });
 
         await newUser.save();
-        res.status(201).json(newUser);
+        res.status(201).json({
+            message: 'User registered successfully',
+            user: {
+                id: newUser._id,
+                email: newUser.email,
+                username: newUser.username,
+            },
+        });
     } catch (err) {
+        console.error("Registration Error:", err);
         res.status(400).json({ message: 'Bad request', error: err.message });
     }
 };
 
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const user = await User.findOne({ email });
         if (!user) {
@@ -48,8 +58,26 @@ exports.loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        res.json(user);
+        res.status(200).json({
+            message: 'Login successful',
+            user: {
+                id: user._id,
+                email: user.email,
+                username: user.username,
+            },
+        });
     } catch (err) {
-        res.status(400).json({ message: 'Bad request', error: err.message });
+        console.error("Login Error:", err);
+        res.status(500).json({ message: 'Server Error', error: err.message });
     }
 };
+
+exports.deleteAll = async (req, res) => {
+    try {
+        const result = await User.deleteMany({});
+        res.status(200).json({ message: 'All Users Deleted', result });
+    } catch (err) {
+        console.error("Error deleting users:", err);
+        res.status(500).json({ message: 'Server Error', error: err.message });
+    }
+}
