@@ -13,7 +13,6 @@ export default function Signup() {
         name: "",
         confirmPassword: "",
     });
-    const [formErrors, setFormErrors] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -29,65 +28,24 @@ export default function Signup() {
         }));
     };
 
-    const validateEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    const validatePasswordStrength = (password) => {
-        const passwordStrengthRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        return passwordStrengthRegex.test(password);
-    };
-
-    const validateForm = () => {
-        const errors = {};
-
-        if (!form.email.trim()) {
-            errors.email = "Email is required.";
-        } else if (!validateEmail(form.email)) {
-            errors.email = "Please enter a valid email.";
-        }
-
-        if (!form.username.trim()) errors.username = "Username is required.";
-        if (!form.name.trim()) errors.name = "Name is required.";
-
-        if (!form.password.trim()) errors.password = "Password is required.";
-        else if (!validatePasswordStrength(form.password)) {
-            errors.password =
-                "Password must be at least 8 characters long and contain both letters and numbers.";
-        }
-
-        if (!form.confirmPassword.trim()) errors.confirmPassword = "Please confirm your password.";
-        else if (form.password !== form.confirmPassword) {
-            errors.confirmPassword = "Passwords do not match.";
-        }
-
-        setFormErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            setLoading(true);
-            try {
-                const response = await axios.post(`https://localhost:3000/api/users/register`, form);
-                setLoading(false);
-                if (response.status === 201) {
-                    console.log("Form submitted successfully:", form);
-                    navigate("/login");
-                }
-            } catch (err) {
-                setLoading(false);
-                console.error("Error: ", err);
-                if (err.response && err.response.data) {
-                    setErrorMessage(err.response.data.message);
-                } else {
-                    setErrorMessage("An error occurred during registration.");
-                }
+        setLoading(true);
+        try {
+            const response = await axios.post(`http://localhost:3000/api/users/register`, form);
+            setLoading(false);
+            if (response.status === 201) {
+                console.log("Form submitted successfully:", form);
+                navigate("/login");
             }
-        } else {
-            console.log("Form contains errors.");
+        } catch (err) {
+            setLoading(false);
+            console.error("Error: ", err);
+            if (err.response && err.response.data) {
+                setErrorMessage(err.response.data.message);
+            } else {
+                setErrorMessage("An error occurred during registration.");
+            }
         }
     };
 
@@ -115,8 +73,8 @@ export default function Signup() {
                         <input
                             id="name"
                             type="text"
-                            placeholder={formErrors.name ? "Name is required" : "Enter your name"}
-                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.name ? "outline-red-500 placeholder-red-500" : "border-gray-300"}`}
+                            placeholder="Enter your name"
+                            className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                             name="name"
                             onChange={handleForm}
                         />
@@ -128,8 +86,8 @@ export default function Signup() {
                         <input
                             id="email"
                             type="email"
-                            placeholder={formErrors.email ? "Email is required" : "Enter your email"}
-                            className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.email ? "outline-red-500 placeholder-red-500" : "border-gray-300"}`}
+                            placeholder="Enter your email"
+                            className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                             name="email"
                             onChange={handleForm}
                         />
@@ -143,11 +101,8 @@ export default function Signup() {
                     <input
                         id="username"
                         type="text"
-                        placeholder={
-                            formErrors.username ? "Username is required" : "Enter your username"
-                        }
-                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.username ? "outline-red-500 placeholder-red-500" : "border-gray-300"
-                            }`}
+                        placeholder="Enter your username"
+                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                         name="username"
                         onChange={handleForm}
                     />
@@ -165,30 +120,22 @@ export default function Signup() {
                     <input
                         id="password"
                         type={isShowPassword ? "text" : "password"}
-                        placeholder={formErrors.password ? "Password is required" : "Enter your password"}
-                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.password ? "outline-red-500 placeholder-red-500" : "border-gray-300"
-                            }`}
+                        placeholder="Enter your password"
+                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                         name="password"
                         onChange={handleForm}
                     />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <div className="flex justify-between items-center">
-                        <label htmlFor="confirmPassword" className="text-md text-gray-700 font-medium">
-                            Confirm Password
-                        </label>
-                    </div>
+                    <label htmlFor="confirmPassword" className="text-md text-gray-700 font-medium">
+                        Confirm Password
+                    </label>
                     <input
                         id="confirmPassword"
                         type={isShowPassword ? "text" : "password"}
-                        placeholder={
-                            formErrors.confirmPassword
-                                ? formErrors.confirmPassword
-                                : "Re-enter your password"
-                        }
-                        className={`py-2 px-3 rounded-sm outline-none border focus:ring-2 ${formErrors.confirmPassword ? "outline-red-500 placeholder-red-500" : "border-gray-300"
-                            }`}
+                        placeholder="Re-enter your password"
+                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                         name="confirmPassword"
                         onChange={handleForm}
                     />
