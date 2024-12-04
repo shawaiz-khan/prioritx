@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLoginContext } from "../contexts/LoginContext";
 import { useThemeContext } from "../contexts/ThemeContext";
+import { useUserContext } from "../contexts/UserContext";
 
 export default function UserPfp() {
     const [isMenu, setIsMenu] = useState(false);
     const navigate = useNavigate();
     const { handleLogout } = useLoginContext();
     const { isDark } = useThemeContext();
+    const { userData } = useUserContext();
 
     const handleClick = () => {
         setIsMenu((prev) => !prev);
@@ -42,7 +44,7 @@ export default function UserPfp() {
                     id="user-pfp-menu"
                     className={`absolute border ${isDark ? 'bg-dark-container text-white border-gray-700' : 'bg-neutral-100 text-gray-800 border-gray-400'} top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md`}
                 >
-                    <li className="bg-transparent px-3 font-semibold text-lg">Username</li>
+                    <li className="bg-transparent px-3 font-semibold text-lg">{userData.name}</li>
                     <hr className="border-gray-300 mx-3 my-2" />
                     <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/dashboard')}>Dashboard</li>
                     <li className={`bg-transparent px-3 py-2 ${isDark ? 'hover:bg-dark-background/50' : 'hover:bg-purple-200'} rounded-md cursor-pointer`} onClick={() => navigate('/settings')}>Settings</li>
