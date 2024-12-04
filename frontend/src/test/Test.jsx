@@ -21,8 +21,8 @@ export default function Test() {
     }
 
     return (
-        <div className={`flex items-center justify-center gap-5 min-h-screen ${isDark ? 'bg-dark-background' : 'bg-light-background'}`}>
-            <div className={`p-8 rounded-lg shadow-lg max-w-sm w-full ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
+        <div className={`flex flex-wrap items-center justify-center gap-5 min-h-screen ${isDark ? 'bg-dark-background' : 'bg-light-background'}`}>
+            <div className={`p-8 flex flex-col items-center justify-center rounded-lg shadow-lg w-56 h-56 ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
                 <h1 className={`text-3xl font-semibold text-center mb-6 ${isDark ? 'text-neutral-50' : 'text-gray-900'}`}>
                     {isLoggedIn ? 'You are Logged In' : 'You are Logged Out'}
                 </h1>
@@ -33,7 +33,7 @@ export default function Test() {
                     Click Me
                 </button>
             </div>
-            <div className={`p-8 rounded-lg shadow-lg max-w-sm w-full ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
+            <div className={`p-8 flex flex-col items-center justify-center rounded-lg shadow-lg w-56 h-56 ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
                 <h1 className={`text-3xl font-semibold text-center mb-6 ${isDark ? 'text-neutral-50' : 'text-gray-900'}`}>
                     {deleted ? 'Deleted' : 'Not Deleted'}
                 </h1>
@@ -41,8 +41,13 @@ export default function Test() {
                     onClick={deleteAllUsers}
                     className="w-full py-2 px-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-300"
                 >
-                    Delete all Users from DB
+                    Delete DB Users
                 </button>
+            </div>
+            <div className={`p-8 flex flex-col items-center justify-center rounded-lg shadow-lg w-56 h-56 ${isDark ? 'bg-dark-container' : 'bg-light-container'}`}>
+                <h1 className={`text-3xl font-semibold text-center mb-6 ${isDark ? 'text-neutral-50' : 'text-gray-900'}`}>
+                    I am a Username
+                </h1>
             </div>
         </div>
     );

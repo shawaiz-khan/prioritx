@@ -1,57 +1,18 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import axios from 'axios'
+import { useLogin } from "../hooks/useLogin";
 
 export default function Login() {
-    const [isShowPassword, setIsShowPassword] = useState(false);
-    const [form, setForm] = useState({ email: "", password: "" });
-    const [formErrors, setFormErrors] = useState({ email: null, password: null });
-
-    const navigate = useNavigate();
-
-    const handleShowPassword = (e) => {
-        e.preventDefault();
-        setIsShowPassword((prev) => !prev);
-    };
-
-    const handleForm = (e) => {
-        setForm((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
-    };
-
-    const validateForm = () => {
-        const errors = {};
-        if (!form.email.trim()) {
-            errors.email = "Email is required.";
-        }
-        if (!form.password.trim()) {
-            errors.password = "Password is required.";
-        }
-        setFormErrors(errors);
-        return Object.keys(errors).length === 0;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:3000/api/users/login', form);
-
-            if (validateForm() && res.status === 200) {
-                console.log("Form submitted successfully:", form);
-                navigate('/dashboard');
-            }
-        } catch (err) {
-            if (err.response) {
-                console.error(`Error: ${err.response.data.message}`);
-            } else {
-                console.error("An error occurred during login.");
-            }
-        }
-    };
+    const {
+        form,
+        formErrors,
+        isShowPassword,
+        handleForm,
+        handleShowPassword,
+        handleSubmit,
+    } = useLogin();
 
     return (
         <main className="min-h-screen flex justify-center items-center">
@@ -62,7 +23,7 @@ export default function Login() {
                 <div>
                     <h1 className="text-3xl font-medium text-gray-900 mb-2">Login</h1>
                     <p className="text-gray-600">
-                        Don't have an account?{" "}
+                        Don't have an account?
                         <Link to="/sign-up" className="text-purple-700 font-medium">
                             Sign Up
                         </Link>
