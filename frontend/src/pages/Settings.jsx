@@ -8,9 +8,9 @@ export default function Settings() {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        name: userData.name || "",
-        email: userData.email || "",
-        username: userData.username || "",
+        name: "",
+        email: "",
+        username: "",
         password: ""
     });
 
@@ -19,7 +19,15 @@ export default function Settings() {
     useEffect(() => {
         if (!userData) {
             navigate("/login");
+            return;
         }
+
+        setForm({
+            name: userData.name || "",
+            email: userData.email || "",
+            username: userData.username || "",
+            password: ""
+        });
     }, [userData, navigate]);
 
     const handleForm = (e) => {
@@ -32,9 +40,14 @@ export default function Settings() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const updatedForm = { ...form };
+        if (!form.password) {
+            delete updatedForm.password;
+        }
+
         try {
             setIsSubmitting(true);
-            const res = await axios.put(`http://localhost:3000/api/users/${userData.id}`, form);
+            const res = await axios.put(`http://localhost:3000/api/users/${userData.id}`, updatedForm);
 
             if (res.status === 200) {
                 setUserData(res.data.user);
@@ -45,14 +58,16 @@ export default function Settings() {
             alert("Error updating user. Please try again.");
         } finally {
             setIsSubmitting(false);
-            alert("Finally Block")
         }
     };
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6 font-sans">
             <div className="bg-white flex-col w-full max-w-4xl rounded-lg shadow-lg p-16 h-[60vh] flex justify-between items-start">
-                <h1 className="text-2xl font-bold text-gray-800 text-center">Account Settings</h1>
+                <div className="w-fit">
+                    <h1 className="px-2 text-3xl font-semibold mb-2">Account Settings</h1>
+                    <span className="block border-t-2 border-purple-600 mb-4"></span>
+                </div>
                 <div className="w-full h-auto space-y-6">
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="flex flex-col">
@@ -111,23 +126,23 @@ export default function Settings() {
                                 placeholder="Enter a new password (optional)"
                             />
                         </div>
+                        <div className="flex justify-end space-x-4 col-span-full">
+                            <button
+                                type="button"
+                                className="px-6 py-2 rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300"
+                                onClick={() => navigate("/dashboard")}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Saving..." : "Save Changes"}
+                            </button>
+                        </div>
                     </form>
-                    <div className="flex justify-end space-x-4">
-                        <button
-                            type="button"
-                            className="px-6 py-2 rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300"
-                            onClick={() => navigate("/dashboard")}
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            className="px-6 py-2 rounded-md text-white bg-purple-600 hover:bg-purple-700"
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? "Saving..." : "Save Changes"}
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

@@ -62,12 +62,47 @@ exports.loginUser = async (req, res) => {
             message: 'Login successful',
             user: {
                 id: user._id,
+                name: user.name,
                 email: user.email,
                 username: user.username,
             },
         });
     } catch (err) {
         console.error("Login Error:", err);
+        res.status(500).json({ message: 'Server Error', error: err.message });
+    }
+};
+
+exports.updateUser = async (req, res) => {
+    const { name, email, username, password } = req.body;
+    const userId = req.params.id;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (username) user.username = username;
+        if (password) {
+            user.password = await bcrypt.hash(password, 10);
+        }
+
+        await user.save();
+
+        res.status(200).json({
+            message: 'User updated successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                username: user.username,
+            },
+        });
+    } catch (err) {
+        console.error("Update Error:", err);
         res.status(500).json({ message: 'Server Error', error: err.message });
     }
 };
