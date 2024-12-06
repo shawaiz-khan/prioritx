@@ -8,10 +8,10 @@ export const useLogin = () => {
     const [form, setForm] = useState({ email: "", password: "" });
     const [formErrors, setFormErrors] = useState({ email: null, password: null });
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { toggleLogin } = useLoginContext();
     const { setUserData } = useUserContext();
-
     const navigate = useNavigate();
 
     const handleShowPassword = (e) => {
@@ -42,6 +42,7 @@ export const useLogin = () => {
         e.preventDefault();
         if (!validateForm()) return;
 
+        setIsLoading(true);
         try {
             const res = await axios.post('http://localhost:3000/api/users/login', form);
             if (res.status === 200) {
@@ -60,6 +61,8 @@ export const useLogin = () => {
             } else {
                 console.error('Error:', err.message || 'Unknown error');
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -68,6 +71,7 @@ export const useLogin = () => {
         setForm,
         formErrors,
         isShowPassword,
+        isLoading,
         handleForm,
         handleShowPassword,
         handleSubmit,

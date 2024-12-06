@@ -1,53 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import axios from "axios";
+import useSignup from "../hooks/useSignup";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
-    const navigate = useNavigate();
-    const [isShowPassword, setIsShowPassword] = useState(false);
-    const [form, setForm] = useState({
-        email: "",
-        username: "",
-        password: "",
-        name: "",
-        confirmPassword: "",
-    });
-    const [errorMessage, setErrorMessage] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const handleShowPassword = (e) => {
-        e.preventDefault();
-        setIsShowPassword((prev) => !prev);
-    };
-
-    const handleForm = (e) => {
-        setForm((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await axios.post(`http://localhost:3000/api/users/register`, form);
-            setLoading(false);
-            if (response.status === 201) {
-                console.log("Form submitted successfully:", form);
-                navigate("/login");
-            }
-        } catch (err) {
-            setLoading(false);
-            console.error("Error: ", err);
-            if (err.response && err.response.data) {
-                setErrorMessage(err.response.data.message);
-            } else {
-                setErrorMessage("An error occurred during registration.");
-            }
-        }
-    };
+    const {
+        isShowPassword,
+        formErrors,
+        errorMessage,
+        loading,
+        handleShowPassword,
+        handleForm,
+        handleSubmit,
+    } = useSignup();
 
     return (
         <main className="min-h-screen flex justify-center items-center">
@@ -74,10 +38,12 @@ export default function Signup() {
                             id="name"
                             type="text"
                             placeholder="Enter your name"
-                            className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                            className={`py-2 px-3 rounded-sm outline-none border ${formErrors.name ? "border-red-500" : "border-gray-300"
+                                } focus:ring-2`}
                             name="name"
                             onChange={handleForm}
                         />
+                        {formErrors.name && <p className="text-red-500 text-sm">{formErrors.name}</p>}
                     </div>
                     <div className="flex flex-col gap-2 flex-1">
                         <label htmlFor="email" className="text-md text-gray-700 font-medium">
@@ -87,10 +53,12 @@ export default function Signup() {
                             id="email"
                             type="email"
                             placeholder="Enter your email"
-                            className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                            className={`py-2 px-3 rounded-sm outline-none border ${formErrors.email ? "border-red-500" : "border-gray-300"
+                                } focus:ring-2`}
                             name="email"
                             onChange={handleForm}
                         />
+                        {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
                     </div>
                 </div>
 
@@ -102,10 +70,12 @@ export default function Signup() {
                         id="username"
                         type="text"
                         placeholder="Enter your username"
-                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                        className={`py-2 px-3 rounded-sm outline-none border ${formErrors.username ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2`}
                         name="username"
                         onChange={handleForm}
                     />
+                    {formErrors.username && <p className="text-red-500 text-sm">{formErrors.username}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -113,7 +83,7 @@ export default function Signup() {
                         <label htmlFor="password" className="text-md text-gray-700 font-medium">
                             Password
                         </label>
-                        <button onClick={handleShowPassword} type="button">
+                        <button onClick={handleShowPassword} type="button" className="text-gray-600">
                             {isShowPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                         </button>
                     </div>
@@ -121,10 +91,12 @@ export default function Signup() {
                         id="password"
                         type={isShowPassword ? "text" : "password"}
                         placeholder="Enter your password"
-                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                        className={`py-2 px-3 rounded-sm outline-none border ${formErrors.password ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2`}
                         name="password"
                         onChange={handleForm}
                     />
+                    {formErrors.password && <p className="text-red-500 text-sm">{formErrors.password}</p>}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -135,20 +107,48 @@ export default function Signup() {
                         id="confirmPassword"
                         type={isShowPassword ? "text" : "password"}
                         placeholder="Re-enter your password"
-                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                        className={`py-2 px-3 rounded-sm outline-none border ${formErrors.confirmPassword ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2`}
                         name="confirmPassword"
                         onChange={handleForm}
                     />
+                    {formErrors.confirmPassword && (
+                        <p className="text-red-500 text-sm">{formErrors.confirmPassword}</p>
+                    )}
                 </div>
 
                 {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
 
                 <button
                     type="submit"
-                    className="bg-purple-700 text-white py-2 rounded-md hover:bg-purple-600 transition"
+                    className={`bg-purple-700 text-white py-2 rounded-md hover:bg-purple-600 transition flex items-center justify-center ${loading ? "cursor-not-allowed opacity-75" : ""
+                        }`}
                     disabled={loading}
                 >
-                    {loading ? "Submitting..." : "Sign Up"}
+                    {loading ? (
+                        <svg
+                            className="animate-spin h-5 w-5 mr-2 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                            ></circle>
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v8H4z"
+                            ></path>
+                        </svg>
+                    ) : (
+                        "Sign Up"
+                    )}
                 </button>
             </form>
         </main>

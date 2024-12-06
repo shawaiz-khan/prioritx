@@ -2,6 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginContext = createContext();
 
@@ -15,18 +16,19 @@ function LoginProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const storedLoginState = localStorage.getItem('isLoggedIn') === 'true';
+        const storedLoginState = Cookies.get('isLoggedIn') === 'true';
         setIsLoggedIn(storedLoginState);
     }, []);
 
     const toggleLogin = () => {
-        setIsLoggedIn((prev) => !prev);
-        localStorage.setItem('isLoggedIn', !isLoggedIn);
+        const newLoginState = !isLoggedIn;
+        setIsLoggedIn(newLoginState);
+        Cookies.set('isLoggedIn', newLoginState, { expires: 7, secure: true });
     };
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', false);
+        Cookies.remove('isLoggedIn');
         navigate('/');
     };
 
