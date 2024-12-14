@@ -1,4 +1,5 @@
 const Task = require('../models/Tasks');
+const authMiddleware = require("../middleware/authMiddleware");
 
 exports.getTasks = async (req, res) => {
     try {
@@ -13,7 +14,13 @@ exports.createTasks = async (req, res) => {
     const { title, description, dueDate, priority } = req.body;
 
     try {
-        const newTask = new Task({ title, description, dueDate, priority });
+        const newTask = new Task({
+          title,
+          description,
+          dueDate,
+          priority,
+          user: req.user._id,
+        });
         await newTask.save();
         res.status(201).json(newTask);
     } catch (err) {
