@@ -11,6 +11,7 @@ export default function Signup() {
         username: "",
         password: "",
         name: "",
+        confirmPassword: "",
     });
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -122,6 +123,20 @@ export default function Signup() {
                         placeholder="Enter your password"
                         className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
                         name="password"
+                        onChange={handleForm}
+                    />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="confirmPassword" className="text-md text-gray-700 font-medium">
+                        Confirm Password
+                    </label>
+                    <input
+                        id="confirmPassword"
+                        type={isShowPassword ? "text" : "password"}
+                        placeholder="Re-enter your password"
+                        className="py-2 px-3 rounded-sm outline-none border border-gray-300 focus:ring-2"
+                        name="confirmPassword"
                         onChange={handleForm}
                     />
                 </div>
