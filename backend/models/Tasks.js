@@ -22,9 +22,13 @@ const TaskSchema = new Schema({
     enum: ["low", "medium", "high"],
     default: "medium",
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
+  },
+  username: {
+    type: String,
     required: true,
   },
 });

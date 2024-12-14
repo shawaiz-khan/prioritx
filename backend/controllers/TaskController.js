@@ -19,7 +19,8 @@ exports.createTasks = async (req, res) => {
           description,
           dueDate,
           priority,
-          user: req.user._id,
+          userId: req.user._id,
+          username: req.user.username,
         });
         await newTask.save();
         res.status(201).json(newTask);
