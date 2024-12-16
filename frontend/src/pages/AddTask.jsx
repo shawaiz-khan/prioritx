@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function AddTask() {
+export default function AddTask() {    
     const [newTask, setNewTask] = useState({
         title: '',
         description: '',
@@ -24,12 +24,15 @@ export default function AddTask() {
         const taskToSend = { ...newTask, completed: false };
 
         try {
-            const res = await fetch('http://localhost:3000/api/tasks', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(taskToSend),
+            const token = localStorage.getItem("token");
+
+            const res = await fetch("http://localhost:3000/api/tasks", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(taskToSend),
             });
 
             if (!res.ok) {

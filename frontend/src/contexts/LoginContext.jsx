@@ -1,40 +1,52 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginContext = createContext();
 
 const useLoginContext = () => {
-    return useContext(LoginContext);
+  return useContext(LoginContext);
 };
 
 function LoginProvider({ children }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-        const storedLoginState = localStorage.getItem('isLoggedIn') === 'true';
-        setIsLoggedIn(storedLoginState);
-    }, []);
+  useEffect(() => {
+    const storedLoginState = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(storedLoginState);
+  }, []);
 
-    const toggleLogin = () => {
-        setIsLoggedIn((prev) => !prev);
-        localStorage.setItem('isLoggedIn', !isLoggedIn);
-    };
+  const login = (token) => {
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('token', token);
+  };
 
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', false);
-        navigate('/');
-    };
+  const toggleLogin = (token) => {
+    setIsLoggedIn((prev) => !prev);
+    localStorage.setItem('isLoggedIn', !isLoggedIn);
+    if (!isLoggedIn) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  };
 
-    return (
-        <LoginContext.Provider value={{ isLoggedIn, toggleLogin, handleLogout }}>
-            {children}
-        </LoginContext.Provider>
-    );
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.setItem('isLoggedIn', false);
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
+  return (
+    <LoginContext.Provider
+      value={{ isLoggedIn, login, toggleLogin, handleLogout }}
+    >
+      {children}
+    </LoginContext.Provider>
+  );
 }
 
 export { LoginProvider, useLoginContext };

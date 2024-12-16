@@ -9,7 +9,7 @@ export const useLogin = () => {
     const [formErrors, setFormErrors] = useState({ email: null, password: null });
     const [isShowPassword, setIsShowPassword] = useState(false);
 
-    const { toggleLogin } = useLoginContext();
+    const { toggleLogin, login } = useLoginContext();
     const { setUserData } = useUserContext();
 
     const navigate = useNavigate();
@@ -47,6 +47,7 @@ export const useLogin = () => {
             if (res.status === 200) {
                 toggleLogin();
                 setUserData(res.data.user);
+                login(res.data.token);
                 navigate('/dashboard');
             }
         } catch (err) {
