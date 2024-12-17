@@ -6,7 +6,7 @@ export default function PreviewPane({ task, closeTask }) {
         return <div>No task selected</div>;
     }
 
-    const { title, description, priority, dueDate } = task;
+    const { title, description, priority, dueDate, username } = task;
     const newPriority = priority.charAt(0).toUpperCase() + priority.slice(1);
 
     const formatDate = (date) => {
@@ -23,6 +23,7 @@ export default function PreviewPane({ task, closeTask }) {
                 <div>
                     <p><span className="font-semibold">Priority:</span> {newPriority}</p>
                     <p><span className="font-semibold">Due Date:</span> {formatDate(dueDate)}</p>
+                    <p><span className="font-semibold">Created by:</span> {username}</p>
                 </div>
             </article>
         </div>

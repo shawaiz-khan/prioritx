@@ -10,7 +10,7 @@ export const useLogin = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { toggleLogin } = useLoginContext();
+    const { toggleLogin, login } = useLoginContext();
     const { setUserData } = useUserContext();
     const navigate = useNavigate();
 
@@ -48,6 +48,7 @@ export const useLogin = () => {
             if (res.status === 200) {
                 toggleLogin();
                 setUserData(res.data.user);
+                login(res.data.token);
                 navigate('/dashboard');
             }
         } catch (err) {
