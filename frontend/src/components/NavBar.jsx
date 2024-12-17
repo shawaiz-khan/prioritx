@@ -62,7 +62,7 @@ function Header({ children }) {
                     className={`font-bold cursor-pointer ${isDark ? "text-light-background" : 'text-gray-800'} text-3xl`}
                     onClick={() => navigate('/')}
                 >
-                    PRIO<span className="text-purple-600">RITX</span>
+                    PRIO<span className="text-purple-500">RITX</span>
                 </h1>
                 {children}
             </nav>
