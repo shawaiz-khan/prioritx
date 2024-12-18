@@ -19,10 +19,11 @@ function LoginProvider({ children }) {
     setIsLoggedIn(storedLoginState);
   }, []);
 
-  const login = (token) => {
+  const login = (token, userData) => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', true);
     localStorage.setItem('token', token);
+    localStorage.setItem('userData', JSON.stringify(userData));
   };
 
   const toggleLogin = (token) => {
@@ -39,13 +40,12 @@ function LoginProvider({ children }) {
     setIsLoggedIn(false);
     localStorage.setItem('isLoggedIn', false);
     localStorage.removeItem('token');
+    localStorage.removeItem('userData');
     navigate('/');
   };
 
   return (
-    <LoginContext.Provider
-      value={{ isLoggedIn, login, toggleLogin, handleLogout }}
-    >
+    <LoginContext.Provider value={{ isLoggedIn, login, toggleLogin, handleLogout }}>
       {children}
     </LoginContext.Provider>
   );
