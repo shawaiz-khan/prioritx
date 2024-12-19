@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useLoginContext } from "../contexts/LoginContext";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../contexts/UserContext";
 
 export const useLogin = () => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -11,7 +10,6 @@ export const useLogin = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { toggleLogin, login } = useLoginContext();
-    const { setUserData } = useUserContext();
     const navigate = useNavigate();
 
     const handleShowPassword = (e) => {
@@ -47,8 +45,7 @@ export const useLogin = () => {
             const res = await axios.post('http://localhost:3000/api/users/login', form);
             if (res.status === 200) {
                 toggleLogin();
-                setUserData(res.data.user);
-                login(res.data.token);
+                login(res.data.token, res.data.user);
                 navigate('/dashboard');
             }
         } catch (err) {
