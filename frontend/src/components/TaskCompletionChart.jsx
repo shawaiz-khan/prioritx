@@ -7,7 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const TaskCompletionChart = ({ completedTasks, totalTasks }) => {
     const data = {
         labels: [`Completed (${completedTasks})`,
-            `Pending (${totalTasks - completedTasks})`
+        `Pending (${totalTasks - completedTasks})`
         ],
         datasets: [
             {

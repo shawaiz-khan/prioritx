@@ -14,6 +14,7 @@ export default function UserPfp() {
 
     const handleClick = () => {
         setIsMenu((prev) => !prev);
+        console.log(userData);
     };
 
     const handleOutsideClick = (e) => {
@@ -39,7 +40,7 @@ export default function UserPfp() {
                 <UserRound size={25} />
             </button>
 
-            {isMenu && (
+            {isMenu && userData && (
                 <ul
                     id="user-pfp-menu"
                     className={`absolute border ${isDark ? 'bg-dark-container text-white border-gray-700' : 'bg-neutral-100 text-gray-800 border-gray-400'} top-10 mt-3 right-5 h-fit px-2 py-3 w-56 rounded-md shadow-md`}

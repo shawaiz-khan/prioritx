@@ -46,7 +46,9 @@ export const useLogin = () => {
             if (res.status === 200) {
                 toggleLogin();
                 login(res.data.token, res.data.user);
+                setForm({ email: "", password: "" });
                 navigate('/dashboard');
+                window.location.reload();
             }
         } catch (err) {
             if (err.response) {

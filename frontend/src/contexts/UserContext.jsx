@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
 const useUserContext = () => useContext(UserContext);
@@ -21,8 +21,17 @@ export default function UserProvider({ children }) {
     }
   }, []);
 
+  const handleSetUserData = (data) => {
+    setUserData(data);
+    if (data) {
+      localStorage.setItem('userData', JSON.stringify(data));
+    } else {
+      localStorage.removeItem('userData');
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData: handleSetUserData }}>
       {children}
     </UserContext.Provider>
   );
