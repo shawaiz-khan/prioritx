@@ -10,17 +10,31 @@ exports.getTasks = async (req, res) => {
     }
 };
 
+exports.getUserTasks = async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const tasks = await Task.find({ userId });
+        if (tasks.length === 0) {
+            return res.status(404).json({ message: 'No tasks found for this user' });
+        }
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: 'Server Error', error: err.message });
+    }
+};
+
 exports.createTasks = async (req, res) => {
     const { title, description, dueDate, priority } = req.body;
 
     try {
         const newTask = new Task({
-          title,
-          description,
-          dueDate,
-          priority,
-          userId: req.user._id,
-          username: req.user.username,
+            title,
+            description,
+            dueDate,
+            priority,
+            userId: req.user._id,
+            username: req.user.username,
         });
         await newTask.save();
         res.status(201).json(newTask);

@@ -1,14 +1,13 @@
 
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import PropTypes from "prop-types";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const TaskCompletionChart = ({ completedTasks, totalTasks }) => {
     const data = {
-        labels: [`Completed (${completedTasks})`,
-        `Pending (${totalTasks - completedTasks})`
-        ],
+        labels: [`Completed (${completedTasks})`, `Pending (${totalTasks - completedTasks})`],
         datasets: [
             {
                 data: [completedTasks, totalTasks - completedTasks],
@@ -33,7 +32,6 @@ const TaskCompletionChart = ({ completedTasks, totalTasks }) => {
         </div>
     );
 };
-import PropTypes from "prop-types";
 
 TaskCompletionChart.propTypes = {
     completedTasks: PropTypes.number.isRequired,
