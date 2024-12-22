@@ -39,6 +39,15 @@ export default function Statistics() {
         .filter(task => task.status !== "completed")
         .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
 
+    if (nearestDueTask) {
+        const dueDate = new Date(nearestDueTask.dueDate);
+        const day = dueDate.getDate().toString().padStart(2, '0');
+        const month = (dueDate.getMonth() + 1).toString().padStart(2, '0');
+        const year = dueDate.getFullYear().toString().slice(-2);
+
+        nearestDueTask.formattedDueDate = `${day}/${month}/${year}`;
+    }
+
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold text-center">Task Statistics</h1>
@@ -46,7 +55,7 @@ export default function Statistics() {
                 <div className="w-full max-w-lg mx-auto">
                     <TaskCompletionChart completedTasks={completedTasks} totalTasks={totalTasks} />
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col">
                     <NearestDueTask task={nearestDueTask} />
                     <PendingTasksCount count={pendingTasks} />
                 </div>
