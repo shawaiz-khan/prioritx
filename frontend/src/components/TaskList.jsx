@@ -1,33 +1,32 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import FilterDropdown from "../components/FilterDropdown";
 import TaskItem from "../components/TaskItem";
+import { useUserContext } from "../contexts/UserContext";
+import useTaskFiltering from "../hooks/useTaskFiltering";
+import PropTypes from "prop-types";
 
 export default function TaskList({
-    uniquePriorities,
-    uniqueDueDates,
     selectedPriority,
     setSelectedPriority,
     selectedDueDate,
     setSelectedDueDate,
     handlePreviewData,
-    handleCompleted,
     isExpanded,
 }) {
+    const { userData } = useUserContext();
     const [tasks, setTasks] = useState([]);
-    const [filteredTasks, setFilteredTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const getTasks = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/tasks');
+            const response = await fetch(`http://localhost:3000/api/tasks/user-tasks?userId=${userData.id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch tasks');
             }
             const data = await response.json();
             setTasks(data);
-            setFilteredTasks(data);
             setIsLoading(false);
         } catch (err) {
             setError(err.message);
@@ -36,27 +35,10 @@ export default function TaskList({
     };
 
     useEffect(() => {
-        let filtered = tasks;
-
-        if (selectedPriority) {
-            filtered = filtered.filter(task => task.priority === selectedPriority);
-        }
-
-        if (selectedDueDate) {
-            filtered = filtered.filter(task => task.dueDate === selectedDueDate);
-        }
-
-        setFilteredTasks(filtered);
-    }, [tasks, selectedPriority, selectedDueDate]);
-
-    const handleDelete = (_id) => {
-        setTasks(tasks.filter(task => task._id !== _id));
-        setFilteredTasks(filteredTasks.filter(task => task._id !== _id));
-    };
-
-    useEffect(() => {
         getTasks();
     }, []);
+
+    const { uniquePriorities, uniqueDueDates, filteredTasks } = useTaskFiltering(tasks, selectedPriority, selectedDueDate);
 
     return (
         <div className={`flex flex-col bg-light-background h-screen p-5 ${isExpanded ? "w-2/4" : "w-full"} flex-shrink-0`}>
@@ -94,9 +76,9 @@ export default function TaskList({
                             <TaskItem
                                 key={task._id}
                                 task={task}
-                                handleCompleted={handleCompleted}
+                                handleCompleted={() => { }}
                                 handlePreviewData={handlePreviewData}
-                                handleDelete={handleDelete}
+                                handleDelete={() => { }}
                             />
                         ))
                     )}
@@ -105,3 +87,12 @@ export default function TaskList({
         </div>
     );
 }
+
+TaskList.propTypes = {
+    selectedPriority: PropTypes.string.isRequired,
+    setSelectedPriority: PropTypes.func.isRequired,
+    selectedDueDate: PropTypes.string.isRequired,
+    setSelectedDueDate: PropTypes.func.isRequired,
+    handlePreviewData: PropTypes.func.isRequired,
+    isExpanded: PropTypes.bool.isRequired,
+};
