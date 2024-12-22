@@ -32,12 +32,10 @@ export default function Statistics() {
     }
 
     const totalTasks = tasks.length;
-    const completedTasks = tasks.filter(task => task.status === "completed").length;
-    const pendingTasks = tasks.filter(task => task.status === "pending").length;
+    const completedTasks = tasks.filter(task => task.completed ? task : null).length;
+    const pendingTasks = tasks.filter(task => task.completed ? null : task).length;
 
-    const nearestDueTask = tasks
-        .filter(task => task.status !== "completed")
-        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
+    const nearestDueTask = tasks.filter(task => task.completed ? null : task).sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
 
     if (nearestDueTask) {
         const dueDate = new Date(nearestDueTask.dueDate);
