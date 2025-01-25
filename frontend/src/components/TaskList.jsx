@@ -38,7 +38,7 @@ export default function TaskList({
         getTasks();
     }, []);
 
-    const { uniquePriorities, uniqueDueDates, filteredTasks } = useTaskFiltering(tasks, selectedPriority, selectedDueDate);
+    const { uniquePriorities, uniqueDueDates, filteredTasks, handleCompleted } = useTaskFiltering(tasks, selectedPriority, selectedDueDate);
 
     return (
         <div className={`flex flex-col bg-light-background h-screen p-5 ${isExpanded ? "w-2/4" : "w-full"} flex-shrink-0`}>
@@ -76,7 +76,7 @@ export default function TaskList({
                             <TaskItem
                                 key={task._id}
                                 task={task}
-                                handleCompleted={() => { }}
+                                handleCompleted={handleCompleted}
                                 handlePreviewData={handlePreviewData}
                                 handleDelete={() => { }}
                             />
