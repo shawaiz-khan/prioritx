@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function useTaskFiltering(tasks) {
-    const [selectedPriority, setSelectedPriority] = useState("");
-    const [selectedDueDate, setSelectedDueDate] = useState("");
+export default function useTaskFiltering(tasks = [], selectedPriority, selectedDueDate) {
+    const [filteredTasks, setFilteredTasks] = useState([]);
+    const [uniquePriorities, setUniquePriorities] = useState([]);
+    const [uniqueDueDates, setUniqueDueDates] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
 
     const getUniqueValues = (key) => [...new Set(tasks.map((task) => task[key]))];
-    const uniquePriorities = getUniqueValues("priority");
-    const uniqueDueDates = getUniqueValues("dueDate");
+
+    useEffect(() => {
+        setUniquePriorities(getUniqueValues("priority"));
+        setUniqueDueDates(getUniqueValues("dueDate"));
+    }, [tasks]);
+
+    useEffect(() => {
+        let filtered = tasks;
+
+        if (selectedPriority) {
+            filtered = filtered.filter(task => task.priority === selectedPriority);
+        }
+
+        if (selectedDueDate) {
+            filtered = filtered.filter(task => task.dueDate === selectedDueDate);
+        }
+
+        setFilteredTasks(filtered);
+    }, [tasks]);
 
     const handlePreviewData = (task) => {
         setSelectedTask(task);
@@ -16,16 +34,12 @@ export default function useTaskFiltering(tasks) {
     };
 
     return {
-        selectedPriority,
-        setSelectedPriority,
-        selectedDueDate,
-        setSelectedDueDate,
-        selectedTask,
-        setSelectedTask,
-        isExpanded,
-        setIsExpanded,
         uniquePriorities,
         uniqueDueDates,
+        filteredTasks,
+        selectedTask,
+        isExpanded,
+        setIsExpanded,
         handlePreviewData,
     };
 }

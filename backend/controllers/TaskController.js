@@ -1,15 +1,6 @@
 const Task = require('../models/Tasks');
 const authMiddleware = require("../middleware/authMiddleware");
 
-exports.getTasks = async (req, res) => {
-    try {
-        const tasks = await Task.find();
-        res.json(tasks);
-    } catch (err) {
-        res.status(500).json({ message: 'Server Error', error: err.message });
-    }
-};
-
 exports.getUserTasks = async (req, res) => {
     const { userId } = req.query;
 
