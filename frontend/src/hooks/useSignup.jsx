@@ -49,7 +49,7 @@ export default function useSignup() {
 
         setLoading(true);
         try {
-            const response = await axios.post(`http://localhost:3000/api/users/register`, form);
+            const response = await axios.post(`${import.meta.env.VITE_REGISTER_ROUTE}`, form);
             setLoading(false);
             if (response.status === 201) {
                 navigate("/login");

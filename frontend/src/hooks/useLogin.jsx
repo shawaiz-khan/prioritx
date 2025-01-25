@@ -42,7 +42,7 @@ export const useLogin = () => {
 
         setIsLoading(true);
         try {
-            const res = await axios.post('http://localhost:3000/api/users/login', form);
+            const res = await axios.post(`${import.meta.env.VITE_BASE_API_URL}`, form);
             if (res.status === 200) {
                 toggleLogin();
                 login(res.data.token, res.data.user);
