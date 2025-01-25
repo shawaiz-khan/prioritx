@@ -2,16 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const User = require('../models/Users');
 
-exports.getUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (err) {
-        console.error("Server Error:", err);
-        res.status(500).json({ message: 'Server Error', error: err.message });
-    }
-};
-
 exports.registerUser = async (req, res) => {
     const { name, email, username, password } = req.body;
 
@@ -60,18 +50,18 @@ exports.loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, "your_jwt_secret", {
-          expiresIn: "1h",
+            expiresIn: "1h",
         });
 
         res.status(200).json({
-          message: "Login successful",
-          token,
-          user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            username: user.username,
-          },
+            message: "Login successful",
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                username: user.username,
+            },
         });
     } catch (err) {
         console.error("Login Error:", err);
@@ -112,13 +102,3 @@ exports.updateUser = async (req, res) => {
         res.status(500).json({ message: 'Server Error', error: err.message });
     }
 };
-
-exports.deleteAll = async (req, res) => {
-    try {
-        const result = await User.deleteMany({});
-        res.status(200).json({ message: 'All Users Deleted', result });
-    } catch (err) {
-        console.error("Error deleting users:", err);
-        res.status(500).json({ message: 'Server Error', error: err.message });
-    }
-}
