@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from "axios";
 
 export default function AddTask() {
     const [newTask, setNewTask] = useState({
@@ -26,10 +27,8 @@ export default function AddTask() {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/api/tasks", {
-                method: "POST",
+            const res = await axios.post(`${import.meta.env.VITE_CREATE_TASKS_ROUTE}`, {
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskToSend),
