@@ -42,8 +42,7 @@ export const useLogin = () => {
 
         setIsLoading(true);
         try {
-            const res = await axios.post(`${import.meta.env.VITE_LOGIN_ROUTE}`, form);
-            console.log(res);
+            const res = await axios.post(`${import.meta.env.VITE_BASE_API_URL}/login`, form);
             if (res.status === 200) {
                 toggleLogin();
                 login(res.data.token, res.data.user);
