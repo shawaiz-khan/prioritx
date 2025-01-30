@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export default function NavBar() {
     const { isLoggedIn } = useLoginContext();
     const navigate = useNavigate();
+    const { isDark } = useThemeContext();
 
     const buttonClass = "bg-purple-600 rounded-md px-4 py-2 text-white hover:bg-purple-700";
 
@@ -22,7 +23,7 @@ export default function NavBar() {
                             type="text"
                             placeholder="Search tasks..."
                             aria-label="Search tasks"
-                            className="w-full px-3 py-2 shadow-md rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                            className={`w-full px-3 py-2 shadow-md rounded-l-lg ${isDark ? "bg-dark-background" : ""} focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm`}
                         />
                         <button
                             type="button"
@@ -52,8 +53,8 @@ export default function NavBar() {
 }
 
 function Header({ children }) {
-    const { isDark } = useThemeContext();
     const navigate = useNavigate();
+    const { isDark } = useThemeContext();
 
     return (
         <header className={`transition-colors duration-300 py-2 px-4 md:px-10 border-b font-sans ${isDark ? 'bg-dark-container border-gray-500' : 'bg-light-container'}`}>
