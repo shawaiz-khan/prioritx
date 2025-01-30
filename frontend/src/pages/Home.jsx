@@ -1,8 +1,13 @@
 import landingImage from '../assets/images/landing image.png';
 import FeaturesBlock from '../components/FeaturesBlock';
+import { useLoginContext } from '../contexts/LoginContext';
 import { features } from '../data/SampleFeatures';
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useLoginContext();
+
     return (
         <main className="min-h-screen bg-light-background font-sans">
             <div className="grid grid-rows-[2fr,3fr] h-[90vh] p-5">
@@ -16,6 +21,7 @@ export default function Home() {
                     <button
                         className="mt-5 px-6 py-3 bg-purple-600 text-md text-white rounded-md shadow-md hover:bg-purple-700 hover:scale-105 transition transform duration-300"
                         aria-label="Start Now with Prioritx"
+                        onClick={() => isLoggedIn ? navigate("/dashboard") : navigate("/sign-up")}
                     >
                         Start Now
                     </button>
