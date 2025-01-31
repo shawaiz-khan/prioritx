@@ -74,4 +74,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Contributors
 
-We want to give a huge thank you to all of our contributors! You can find the full list of contributors in the [CONTRIBUTORS.md](./CONTRIBUTORS.md) file.
+We want to give a huge thank you to all of our contributors! You can find the full list of contributors in the [CONTRIBUTORS.md](./CONTRIBUTORS.md) file..
